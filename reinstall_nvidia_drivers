@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# Update package lists
+sudo apt update
+
+# Purge existing NVIDIA drivers and CUDA packages
+sudo apt purge --auto-remove nvidia-* cuda-*
+
+# Remove CUDA toolkit configuration files
+sudo rm -rf /usr/local/cuda*
+
+# Install the NVIDIA driver package repository
+sudo add-apt-repository ppa:graphics-drivers/ppa
+sudo apt update
+
+# Install the latest NVIDIA driver (adjust version as needed)
+sudo apt install nvidia-driver-535
+
+# Install CUDA Toolkit (adjust version as needed)
+wget https://developer.nvidia.com/compute/cuda/12.2/Prod/local_installers/cuda_12.2.2_555.30.05_linux.run
+sudo sh cuda_12.2.2_555.30.05_linux.run --silent --accept-eula
+
+# Set environment variables (adjust paths as needed)
+export PATH=/usr/local/cuda-12.2/bin:$PATH
+export LD_LIBRARY_PATH=/usr/local/cuda-12.2/lib64:$LD_LIBRARY_PATH
+
+# Reboot the system
+sudo reboot
