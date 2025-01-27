@@ -14,7 +14,7 @@ flatpak install flathub com.github.Matoking.protontricks
 flatpak install flathub com.github.tchx84.Flatseal
 flatpak install flathub io.github.flattool.Warehouse
 apt install mangohud
-
+apt install steam-devices
 
 # Install Steam via command line
 ## flatpak install flathub com.valvesoftware.Steam
