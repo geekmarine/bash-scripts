@@ -1,0 +1,41 @@
+#!/bin/bash
+
+# Define the base directory for Ollama data
+base_dir="/storage/ollama"
+
+# Define the subdirectories to create
+subdirs=("models" "library" "config")
+
+# Create the base directory if it doesn't exist
+if [ ! -d "$base_dir" ]; then
+  echo "Creating base directory: $base_dir"
+  mkdir -p "$base_dir"
+else
+  echo "Base directory already exists: $base_dir"
+fi
+
+# Create the subdirectories
+for subdir in "${subdirs[@]}"; do
+  full_path="$base_dir/$subdir"
+  if [ ! -d "$full_path" ]; then
+    echo "Creating subdirectory: $full_path"
+    mkdir -p "$full_path"
+  else
+    echo "Subdirectory already exists: $full_path"
+  fi
+done
+
+echo "Ollama directory structure created/verified successfully in $base_dir"
+
+# Optional: Set appropriate permissions (e.g., for the user running Docker)
+#  Adjust the user and group as needed.
+# chown -R $USER:$USER "$base_dir"  # Example: Sets ownership to the current user
+# chmod -R 0755 "$base_dir"       # Example: Sets read/execute permissions for owner and group, read for others.  Adjust as necessary.
+# echo "Permissions set (example - adjust as needed)."
+
+# Optional:  A useful reminder for the user
+echo "Remember to mount these directories in your docker run command:"
+echo "-v $base_dir/models:/var/lib/ollama/models \\"
+echo "-v $base_dir/library:/var/lib/ollama/library \\"
+echo "-v $base_dir/config:/var/lib/ollama/config \\"
+echo "... rest of your docker run command ..."
